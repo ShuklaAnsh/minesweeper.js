@@ -1,0 +1,181 @@
+body * {
+    margin: 0 auto;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+#statusbar {
+    width: 90vw;
+    height: 10vh;
+    background-color: #333;
+    border: 5px solid #333;
+    display: flex;
+    flex-direction: row;
+    padding-top: 5px;
+
+    * {
+        color: whitesmoke;
+        text-align: center;
+        line-height: 10vh;
+        letter-spacing: 1px;
+    }
+
+    #resetBtn {
+        margin-right: 5px;
+    }
+    
+    #flagBtn {
+        margin-left: 5px;
+
+    }
+    
+    .flagging{
+        background-color: pink;
+
+        &:hover{
+            background-color: yellowgreen;
+            cursor: pointer;
+        }
+    }
+
+    .statusBarButton {
+        width: 25vw;
+        border: 1px solid yellow;
+        transition-duration: 0.3s;
+        transition-delay: 0.1s;
+        -webkit-transition-duration: 0.3s;
+        -webkit-transition-delay: 0.1s;
+
+        &:hover:not(.flagging){
+            background-color: #555;
+            cursor: pointer;
+        }
+    }
+
+    #title {
+        width: 50vw;
+        font-size: 25px;
+    }
+
+    #numBombs {
+        float: left;
+        width: 20vw;
+    }
+    
+    #numMoves {
+        float: right;
+        width: 20vw;
+    }
+
+    .numberTxt {
+        color: yellow;
+        font-family: monospace;
+    }
+}
+
+#container {
+    background-color: whitesmoke;
+    border: 5px solid #333;
+    width: 90vw;
+    height: 80vh;
+
+    #menu {
+        h1 {
+            text-align: center;
+            padding: 10px 10px 0px 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 100;
+            letter-spacing: 3px;
+        }
+
+        #easyModeBtn {
+            background-color: lightgreen;
+            &:hover {
+                background-color: lighten($color: lightgreen, $amount: 10);
+            }
+        }
+        
+        #mediumModeBtn {
+            background-color: rgb(236, 216, 101);
+            &:hover {
+                background-color: lighten($color: rgb(236, 216, 101), $amount: 10);
+            }
+        }
+        
+        #hardModeBtn {
+            background-color: lightcoral;
+            &:hover {
+                background-color: lighten($color: lightcoral, $amount: 10);
+            }
+        }
+        
+        .modeBtn {
+            margin: 10px auto 10px;
+            height: 20vh;
+            width: 85%;
+        
+            p {
+                text-align: center;
+                font-size: 25px;
+                line-height: 20vh;
+            }
+        }
+    }
+    
+    #gameboard {
+        background-color: whitesmoke;
+        width: 90vw;
+        height: 80vh;
+        display:  grid;
+        align-content: center;
+        justify-content: center;
+        gap: 2px;
+
+        .cell {
+            background-color: #ddd;
+            transition-duration: 0.5s;
+            transition-delay: 0.2s;
+            -webkit-transition-duration: 0.5s;
+            -webkit-transition-delay: 0.2s;
+
+            p {
+                display: none;
+                user-select: none; /* supported by Chrome and Opera */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+            }
+
+            &:not(.snooped):not(.flagged):hover {
+                cursor: pointer;
+                background-color: #555;
+            }
+        }
+
+        .snooped {
+            background-color: #333;
+            p {
+                display: block;
+                text-align: center;
+                color: whitesmoke;
+            }
+        }
+
+        .flagged {
+            background-color: yellow;
+            p{
+                visibility: hidden;
+            }
+            &:hover {
+                background-color: palegoldenrod;
+            }
+        }
+    }
+}
+
+.hide {
+    display: none;
+}
