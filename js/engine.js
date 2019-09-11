@@ -28,7 +28,7 @@ var Engine = function() {
             case 'medium':
             case 'hard':
                 this.initGame(mode);
-                this.started = true;
+                this.game.started = true;
             break;
             
             default:
@@ -93,10 +93,7 @@ var Engine = function() {
      * @param {Number} cols - Number of cols for this game
      */
     this.initCells = function(rows, cols) {
-        var padding = 50;
-        var max_width = Math.floor( (elems.container.scrollWidth - padding) / cols ); // - grid gap
-        var max_height = Math.floor( (elems.container.scrollHeight  - padding) / rows ); // - grid gap
-        var length = Math.min(max_width, max_height) - 1; // cell gap
+        var length = this.getCellSize();
         var cell_id = 0;
         for(var row = 0; row < rows; row++){
             var cell_row = [];
@@ -114,6 +111,19 @@ var Engine = function() {
             this.cells.push(cell_row);
         }
         this.initCellNeighbours(rows, cols);
+    };
+
+    /**
+     * Gets what the side length of each cell should be based on the available window size
+     * @returns {Number} - the length
+     */
+    this.getCellSize = function(){
+        var rows = this.game.mode.rows;
+        var cols = this.game.mode.cols;
+        var padding = 50;
+        var max_width = Math.floor( (elems.container.scrollWidth - padding) / cols ); // - grid gap
+        var max_height = Math.floor( (elems.container.scrollHeight  - padding) / rows ); // - grid gap
+        return Math.min(max_width, max_height) - 1; // cell gap
     };
 
     /**
@@ -279,6 +289,23 @@ var Engine = function() {
     };
 
     /**
+     * Handles Window resizes
+     * Changes cell size
+     */
+    this.handleResize = function() {
+        TODO("Look into changing stylesheet parameter instead of going through all cells");
+        if(engine.gameStarted()){ //if cells initialized
+            var length = engine.getCellSize();
+            engine.cells.forEach(cellRow => {
+                cellRow.forEach(cell => {
+                    cell.cell_elem.style.width = length + 'px';
+                    cell.cell_elem.style.height = length + 'px';
+                });
+            });
+        };
+    };
+
+    /**
      * Handles mouse click based on the cell clicked
      * @param {String} cell_elem - the html element
      */
@@ -340,7 +367,7 @@ var Engine = function() {
      */
     this.gameOver = function(cell){
         TODO('unveil all');
-        console.log("GAME OVER");
+        alert("Game Over!");
     };
     
     /**
@@ -419,5 +446,4 @@ var Engine = function() {
         });
         return ret;
     };
-
 };

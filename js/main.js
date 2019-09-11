@@ -47,7 +47,8 @@ function loaded(){
             }
         }
     }
-
+    
+    initListener(window,  "resize", engine.handleResize);
     initListener(elems.statusBar.flagBtn, "click", engine.toggleFlagging);
 
     for(var mode in elems.modes){
