@@ -164,6 +164,13 @@ body {
             }
         }
 
+        .snooped.bomb{
+            background-color: red;
+            p {
+                visibility: hidden;
+            }
+        }
+
         .flagged {
             background-color: yellow;
             p{

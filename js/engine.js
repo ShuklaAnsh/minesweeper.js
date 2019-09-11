@@ -262,12 +262,12 @@ var Engine = function() {
             var randomCol = Math.ceil(Math.random() * this.game.mode.cols) - 1;
             var randomRow = Math.ceil(Math.random() * this.game.mode.rows) - 1;
             var bomb_cell = this.cells[randomRow][randomCol];
-            if(bomb_cell.x == cell.x && bomb_cell.y == cell.y)
-            {
+            if(bomb_cell.is_bomb || (bomb_cell.x === cell.x && bomb_cell.y === cell.y)) {
                 i--;
                 continue;
-            }
+            };
             bomb_cell.is_bomb = true;
+            bomb_cell.cell_elem.classList.add('bomb');
         };
         this.cells.forEach(cellRow => {
             cellRow.forEach(cell => {
@@ -366,7 +366,12 @@ var Engine = function() {
      * @param cell - losing cell
      */
     this.gameOver = function(cell){
-        TODO('unveil all');
+        this.cells.forEach(cellRow => {
+            cellRow.forEach(cell => {
+                cell.snooped = true;
+                cell.cell_elem.classList.add('snooped');
+            });
+        });
         alert("Game Over!");
     };
     

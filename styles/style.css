@@ -181,6 +181,14 @@ body {
   color: whitesmoke;
 }
 
+#container #gameboard .snooped.bomb {
+  background-color: red;
+}
+
+#container #gameboard .snooped.bomb p {
+  visibility: hidden;
+}
+
 #container #gameboard .flagged {
   background-color: yellow;
 }
