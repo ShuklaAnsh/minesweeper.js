@@ -1,3 +1,4 @@
+TODO('inc/dec moves to a function. (change moves + change text)')
 /** An object that controls the game's mechanics */
 var Engine = function() {
     /*  TODO */
@@ -416,8 +417,23 @@ var Engine = function() {
      * Resets the game.
      */
     this.reset = function(){
-        TODO('reset')
         console.log("Game reset");
+        engine.cells.forEach(cellRow => {
+            cellRow.forEach(cell => {
+                cell.proximity = 0;
+                cell.snooped = false;
+                cell.is_bomb = false;
+                cell.flagged = false;
+                cell.cell_elem.classList.remove('snooped');
+                cell.cell_elem.classList.remove('flagged');
+                cell.cell_elem.classList.remove('bomb');
+                if(cell.cell_elem.children[0]) {
+                    cell.cell_elem.children[0].innerHTML = '';
+                };
+            });
+        });
+        engine.game.moves = 0;
+        elems.statusBar.numMoves.children[0].innerHTML = 0;
     };
 
     /**
