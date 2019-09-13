@@ -1,6 +1,6 @@
-// window.onbeforeunload = function(event) {
-//     return "Progress will be lost."
-// }
+window.onbeforeunload = function(event) {
+    return "Progress will be lost."
+}
 
 TODO("Add error handling");
 
