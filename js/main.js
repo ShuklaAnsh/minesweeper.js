@@ -36,7 +36,7 @@ function loaded(){
         easy : {
             rows: (orientation === 'portrait') ? 25 : 15,
             cols: (orientation === 'portrait') ? 15 : 25,
-            bombs: 2
+            bombs: 25
         },
         medium : {
             rows: (orientation === 'portrait') ? 35 : 20,
