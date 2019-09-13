@@ -38,11 +38,14 @@ body {
 }
 
 #statusbar .flagging {
-  background-color: pink;
+  background-color: yellow;
+  color: #333;
 }
 
 #statusbar .flagging:hover {
-  background-color: yellowgreen;
+  background-color: #333;
+  color: whitesmoke;
+  font-weight: bold;
   cursor: pointer;
 }
 
@@ -56,6 +59,7 @@ body {
 }
 
 #statusbar .statusBarButton:hover:not(.flagging) {
+  font-weight: bold;
   background-color: #555;
   cursor: pointer;
 }

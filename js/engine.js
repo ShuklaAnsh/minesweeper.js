@@ -9,8 +9,10 @@ var Engine = function() {
     this.game = {
         moves: 0,
         bombs: 0, 
-        started: false, /** Boolean for if the game has started or not */
-        flagging: false /** Boolean for if the selection is for flagging or sniffing */
+        numCellsSnooped: 0,
+        numCellsFlagged: 0,
+        started: false,  /** Boolean for if the game has started or not */
+        flagging: false  /** Boolean for if the selection is for flagging or sniffing */
     };
 
     this.cells = [];    /** Cell array used as a Graph */ TODO("add to Graph object");
@@ -53,9 +55,7 @@ var Engine = function() {
         this.game.mode = modes[mode];
         elems.statusBar.title.classList.add("hide");
         elems.statusBar.resetBtn.classList.remove("hide");
-        elems.statusBar.resetBtn.classList.add("statusBarButton");
         elems.statusBar.flagBtn.classList.remove("hide");
-        elems.statusBar.flagBtn.classList.add("statusBarButton");
         this.game.bombs = this.game.mode.bombs;
         this.initGrid();
     };
@@ -121,7 +121,7 @@ var Engine = function() {
     this.getCellSize = function(){
         var rows = this.game.mode.rows;
         var cols = this.game.mode.cols;
-        var padding = 50;
+        var padding = 30;
         var max_width = Math.floor( (elems.container.scrollWidth - padding) / cols ); // - grid gap
         var max_height = Math.floor( (elems.container.scrollHeight  - padding) / rows ); // - grid gap
         return Math.min(max_width, max_height) - 1; // cell gap
@@ -340,17 +340,13 @@ var Engine = function() {
             if(cell.flagged){
                 this.game.bombs++;
                 cell.flagged = false;
+                this.game.numCellsFlagged--;
                 cell.cell_elem.classList.remove('flagged');
             } else {
                 this.game.bombs--;
                 cell.flagged = true;
+                this.game.numCellsFlagged++;
                 cell.cell_elem.classList.add('flagged');
-                if(this.game.bombs === 0){
-                    if(this.checkFlags()){
-                        TODO("Game over - Win");
-                        alert("WINNER!");
-                    }
-                }
             }
             elems.statusBar.numBombs.children[0].innerHTML = this.game.bombs;
         } else {    
@@ -361,6 +357,17 @@ var Engine = function() {
                 this.search(cell);
             }
         }
+
+        if(this.game.bombs === 0){
+            let numCells = this.game.mode.rows * this.game.mode.cols;
+            let numCheckedCells = this.game.numCellsSnooped + this.game.numCellsFlagged;
+            console.log({numCheckedCells:numCheckedCells, numCells:numCells })
+            if((numCheckedCells === numCells) &&  this.checkFlags()){ 
+                TODO("Game over - Win");
+                alert("WINNER!");
+            }
+        }
+
         this.printBoard();
     };
     
@@ -390,6 +397,7 @@ var Engine = function() {
             return;
         }
         cell.snooped = true;
+        this.game.numCellsSnooped++;
         cell.cell_elem.classList.add('snooped');
         if(cell.proximity > 0) {
             return;
@@ -408,11 +416,9 @@ var Engine = function() {
         if(engine.game.flagging){
             engine.game.flagging = false;
             elems.statusBar.flagBtn.classList.remove('flagging');
-            elems.statusBar.flagBtn.innerHTML = "FLAG";
         } else {
             engine.game.flagging = true;
             elems.statusBar.flagBtn.classList.add('flagging');
-            elems.statusBar.flagBtn.innerHTML = "FLAGGING";
         }
     }
     
@@ -420,8 +426,9 @@ var Engine = function() {
      * Resets the game.
      */
     this.reset = function(){
-        console.log("Game reset");
-        engine.cells.forEach(cellRow => {
+        if(confirm("Reset?\nGame progress will be lost")) {
+            console.log("Game reset");
+            engine.cells.forEach(cellRow => {
             cellRow.forEach(cell => {
                 cell.proximity = 0;
                 cell.snooped = false;
@@ -436,7 +443,10 @@ var Engine = function() {
             });
         });
         engine.game.moves = 0;
+        engine.game.numCellsSnooped = 0;
+        engine.game.numCellsFlagged = 0;
         elems.statusBar.numMoves.children[0].innerHTML = 0;
+        }
     };
 
     /**

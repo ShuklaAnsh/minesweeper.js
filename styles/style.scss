@@ -29,14 +29,16 @@ body {
     
     #flagBtn {
         margin-left: 5px;
-
     }
     
     .flagging{
-        background-color: pink;
+        background-color: yellow;
+        color: #333;
 
         &:hover{
-            background-color: yellowgreen;
+            background-color: #333;
+            color:whitesmoke;
+            font-weight: bold;
             cursor: pointer;
         }
     }
@@ -50,6 +52,7 @@ body {
         -webkit-transition-delay: 0.1s;
 
         &:hover:not(.flagging){
+            font-weight: bold;
             background-color: #555;
             cursor: pointer;
         }
