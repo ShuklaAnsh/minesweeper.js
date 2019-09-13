@@ -446,6 +446,7 @@ var Engine = function() {
         engine.game.numCellsSnooped = 0;
         engine.game.numCellsFlagged = 0;
         elems.statusBar.numMoves.children[0].innerHTML = 0;
+        elems.statusBar.numBombs.children[0].innerHTML = 0;
         }
     };
 
