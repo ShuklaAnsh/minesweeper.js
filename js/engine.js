@@ -50,7 +50,7 @@ var Engine = function() {
      * @param {String} mode - "easy, medium, or hard"
      */
     this.initGame = function(mode) {
-        this.game.mode = elems.modes[mode];
+        this.game.mode = modes[mode];
         elems.statusBar.title.classList.add("hide");
         elems.statusBar.resetBtn.classList.remove("hide");
         elems.statusBar.resetBtn.classList.add("statusBarButton");
@@ -301,6 +301,9 @@ var Engine = function() {
                 cellRow.forEach(cell => {
                     cell.cell_elem.style.width = length + 'px';
                     cell.cell_elem.style.height = length + 'px';
+                    if(cell.cell_elem.children[0]){
+                        cell.cell_elem.children[0].style.lineHeight = length;
+                    }
                 });
             });
         };
