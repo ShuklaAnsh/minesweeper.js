@@ -8,7 +8,7 @@ body {
 
 #statusbar {
     width: 90vw;
-    height: 10vh;
+    height: 5vh;
     background-color: #333;
     border: 5px solid #333;
     display: flex;
@@ -18,8 +18,9 @@ body {
     * {
         color: whitesmoke;
         text-align: center;
-        line-height: 10vh;
+        line-height: 5vh;
         letter-spacing: 1px;
+        font-size: 0.95em;
     }
 
     #resetBtn {
@@ -41,7 +42,7 @@ body {
     }
 
     .statusBarButton {
-        width: 25vw;
+        width: 20vw;
         border: 1px solid yellow;
         transition-duration: 0.3s;
         transition-delay: 0.1s;
@@ -56,22 +57,23 @@ body {
 
     #title {
         width: 50vw;
-        font-size: 25px;
+        font-size: 1.2em;
     }
 
     #numBombs {
         float: left;
-        width: 20vw;
+        width: 24vw;
     }
     
     #numMoves {
         float: right;
-        width: 20vw;
+        width: 24vw;
     }
 
     .numberTxt {
         color: yellow;
         font-family: monospace;
+        font-size: 0.95em;
     }
 }
 
